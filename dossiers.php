@@ -301,7 +301,7 @@
                 </div>
             </div>
             <h5 class="bg-info text-dark p-1">INSTRUCTIONS</h5> 
-            <div class="form-group row">
+            <div class="form-group row text-center">
                 <div class="col-md-4">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
