@@ -58,7 +58,17 @@
 <script src="assets/pages/widget/amchart/serial.min.js"></script>
 <!-- Todo js -->
 <script type="text/javascript " src="assets/pages/todo/todo.js "></script>
+<!-- classie js -->
+<script type="text/javascript" src="assets/js/classie/classie.js"></script>
+<!-- Morris Chart js -->
+<script src="assets/js/raphael/raphael.min.js"></script>
+<script src="assets/js/morris.js/morris.js"></script>
 <!-- Custom js -->
+<script src="assets/pages/chart/morris/morris-custom-chart.js"></script>
+<script type="text/javascript" src="assets/js/script.js"></script>
+<script src="assets/js/pcoded.min.js"></script>
+<script src="assets/js/demo-12.js"></script>
+<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
 <script type="text/javascript" src="assets/pages/dashboard/custom-dashboard.js"></script>
 <script type="text/javascript" src="assets/js/script.js"></script>
 <script type="text/javascript " src="assets/js/SmoothScroll.js"></script>
@@ -98,7 +108,65 @@ $(document).ready(function() {
             }
         }
     });
-} );
+
+    $('#tableauActivites').DataTable({
+        pagingType: "simple_numbers",
+        lengthMenu: [5, 10, 15, 20, 25, 50, 100],
+        pageLength: 20,
+        order: [[0, 'asc']],
+        language: {
+            "sProcessing": "Traitement en cours...",
+            "sSearch": "Rechercher&nbsp;:",
+            "sLengthMenu": "Afficher _MENU_ activités",
+            "sInfo": "Affichage des activités _START_ &agrave; _END_ sur _TOTAL_ activités",
+            "sInfoEmpty": "Aucune activité trouv&eacute;e",
+            "sInfoFiltered": "(recherche parmi _MAX_ activités au total)",
+            "sInfoPostFix": "",
+            "sLoadingRecords": "Chargement en cours...",
+            "sZeroRecords": "Aucune activité &agrave; afficher",
+            "sEmptyTable": "Aucune activité enregistr&eacute;e",
+            "oPaginate": {
+                "sFirst": "Premier",
+                "sPrevious": "Pr&eacute;c&eacute;dent",
+                "sNext": "Suivant",
+                "sLast": "Dernier"
+            },
+            "oAria": {
+                "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+            }
+        }
+    });
+
+    $('#tableauUsers').DataTable({
+        pagingType: "simple_numbers",
+        lengthMenu: [5, 10, 15, 20, 25, 50, 100],
+        pageLength: 20,
+        order: [[0, 'asc']],
+        language: {
+            "sProcessing": "Traitement en cours...",
+            "sSearch": "Rechercher&nbsp;:",
+            "sLengthMenu": "Afficher _MENU_ utilisateurs",
+            "sInfo": "Affichage des utilisateurs _START_ &agrave; _END_ sur _TOTAL_ utilisateurs",
+            "sInfoEmpty": "Aucun utilisateur trouv&eacute;",
+            "sInfoFiltered": "(recherche parmi _MAX_ utilisateurs au total)",
+            "sInfoPostFix": "",
+            "sLoadingRecords": "Chargement en cours...",
+            "sZeroRecords": "Aucun utilisateur &agrave; afficher",
+            "sEmptyTable": "Aucun utilisateur enregistr&eacute;",
+            "oPaginate": {
+                "sFirst": "Premier",
+                "sPrevious": "Pr&eacute;c&eacute;dent",
+                "sNext": "Suivant",
+                "sLast": "Dernier"
+            },
+            "oAria": {
+                "sSortAscending": ": activer pour trier la colonne par ordre croissant",
+                "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
+            }
+        }
+    });
+});
 </script>
 </body>
 

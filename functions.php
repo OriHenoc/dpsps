@@ -1,5 +1,7 @@
 <?php
 
+require_once 'config/connexion.php';
+
 //Dates Relatives
 function time2str($date_to_convert)
 {
@@ -45,5 +47,3 @@ function time2str($date_to_convert)
         return date('F Y', $date_to_convert);
     }
 }
-
-//

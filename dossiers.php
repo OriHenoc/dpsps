@@ -38,71 +38,45 @@
                 <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Consultation</div>
                 <ul class="pcoded-item pcoded-left-item">
                     <li>
-                        <a href="consultation/notifications.php">
+                        <a href="notifications.php">
                             <span class="pcoded-micon"><i class="ti-bell"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.form-components.main">Notifications</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
                     <li>
-                        <a href="chart.html">
+                        <a href="suivi.php">
                             <span class="pcoded-micon"><i class="ti-stats-up"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.form-components.main">Rapports et Suivis</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
                     <li>
-                        <a href="map-google.html">
+                        <a href="personnel.php">
                             <span class="pcoded-micon"><i class="ti-user"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.form-components.main">Liste du personnel</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
                     <li>
-                        <a href="map-google.html">
+                        <a href="services.php">
                             <span class="pcoded-micon"><i class="ti-briefcase"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.form-components.main">Liste des services</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
                 </ul>
-                <!-- liste du personnel (et leur service respectifs)
-                liste des services (nombre de personnel dans le service) -->
                 <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Administration</div>
                 <ul class="pcoded-item pcoded-left-item">
                     <li>
-                        <a href="chart.html">
+                        <a href="utilisateurs.php">
                             <span class="pcoded-micon"><i class="ti-user"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.form-components.main">Utilisateurs</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
-                    <li>
-                        <a href="map-google.html">
-                            <span class="pcoded-micon"><i class="ti-check-box"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.form-components.main">Rôles</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
                 </ul>
 
-                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.other">Configurations</div>
-                <ul class="pcoded-item pcoded-left-item">
-                    <li>
-                        <a href="map-google.html">
-                            <span class="pcoded-micon"><i class="ti-view-grid"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.form-components.main">L' Application</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="map-google.html">
-                            <span class="pcoded-micon"><i class="ti-palette"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.form-components.main">Thème</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                </ul>
                         </div>
                     </nav>
                     <div class="pcoded-content">
@@ -115,7 +89,7 @@
                                         <div class="row align-items-end">
                                             <div class="col-lg-8">
                                                 <div class="page-header-title">
-                                                    <i class="icofont icofont icofont icofont-file-document bg-secondary"></i>
+                                                    <i class="icofont icofont icofont icofont-folder-open bg-primary"></i>
                                                     <div class="d-inline">
                                                         <h4>Dossiers</h4>
                                                         <span>Consultez et Ajoutez des dossiers</span>
@@ -165,13 +139,17 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th>#</th>
-                                                                    <th>Date</th>
-                                                                    <th>Intitulé</th>
+                                                                    <th>Reference</th>
+                                                                    <th>Date Dossier</th>
+                                                                    <th>Date Réception</th>
+                                                                    <th>Instructions DGPE</th>
+                                                                    <th>Expediteur</th>
+                                                                    <th>Objet</th>
                                                                     <th>Instructions</th>
                                                                     <th>Imputation</th>
+                                                                    <th>Début</th>
                                                                     <th>Fin Prévue</th>
                                                                     <th>Fin Réelle</th>
-                                                                    <th>Activités</th>
                                                                     <th>Statut</th>
                                                                     <th>Observations</th>
                                                                     <th>Actions</th>
@@ -181,26 +159,64 @@
                                                                 <?php $i=1; foreach($dossiers as $dos): ?>
                                                                 <tr>
                                                                 <td><?= $i++ ?></td>
-                                                                <td><?= $dos["date_creat_dos"]; ?></td>
-                                                                <td><?= $dos["intitule_dos"]; ?></td>
-                                                                <td><?= $dos["instructions_dos"]; ?></td>
+                                                                <td><?= $dos["ref_dos"] ?></td>
+                                                                <td><?= $dos["date_dos"] ?></td>
+                                                                <td><?= $dos["date_recep_dos"] ?></td>
+                                                                <td><?= $dos["instructDGPE_dos"] ?></td>
+                                                                <td><?= $dos["expediteur_dos"] ?></td>
+                                                                <td><?= $dos["objet_dos"] ?></td>
+                                                                <td><?= $dos["instructions_dos"] ?></td>
                                                                 <td>
-                                                                    Service Projet
+                                                                    <?php 
+                                                                        if($dos["imputation_sd_dos"]):
+                                                                            $sd_dos = $dos["imputation_sd_dos"];
+                                                                            $req_sd = $bdd->query("SELECT * FROM sousdirections INNER JOIN dossiers ON dossiers.imputation_sd_dos=sousdirections.id_sd WHERE dossiers.imputation_sd_dos=$sd_dos");
+                                                                            $sd = $req_sd->fetch();
+
+                                                                            echo "- Imputé à la Sous-Direction : <br>".$sd["libelle_sd"];
+                                                                        endif;
+                                                                    ?> 
+                                                                    <?php 
+                                                                        if($dos["imputation_service_dos"]):
+                                                                            $serv_dos = $dos["imputation_service_dos"];
+                                                                            $req_serv = $bdd->query("SELECT * FROM services INNER JOIN dossiers ON dossiers.imputation_service_dos=services.id_service WHERE dossiers.imputation_service_dos=$serv_dos");
+                                                                            $serv = $req_serv->fetch();
+
+                                                                            echo "<br><br> - Imputé au Service : <br>".$serv["libelle_service"];
+                                                                        endif;
+                                                                    ?>
+                                                                    <?php 
+                                                                        if($dos["imputation_agent_dos"]):
+                                                                            $agt_dos = $dos["imputation_agent_dos"];
+                                                                            $req_agt = $bdd->query("SELECT * FROM users INNER JOIN dossiers ON dossiers.imputation_agent_dos=users.id_user WHERE dossiers.imputation_agent_dos=$agt_dos");
+                                                                            $ag = $req_agt->fetch();
+
+                                                                            echo "<br><br> - Imputé à l'agent : <br>".$ag["fullname_user"];
+                                                                        endif;
+                                                                    ?>
+                                                                    <?php
+                                                                        if($dos["imputation_autres"]):
+                                                                            echo "<br><br> - Autres Imputations : <br>".$dos["imputation_autres"];
+                                                                        endif;
+                                                                    ?>
                                                                 </td>
-                                                                <td><?= $dos["date_fin_prevue_dos"]; ?></td>
-                                                                <td><?= $dos["date_fin_effective_dos"]; ?></td>
+                                                                <td><?= $dos["date_debut_dos"]; ?></td>
+                                                                <td><?= $dos["date_fin_prevue_dos"] ?></td>
+                                                                <td><?= $dos["date_fin_reelle_dos"] ?></td>
                                                                 <td>
-                                                                    <ul>
-                                                                        <li>Reunion</li>
-                                                                        <li>Discussion</li>
-                                                                        <li>Débat</li>
-                                                                    </ul>
+                                                                    <?php 
+                                                                        $stat = $dos["statut_dos"];
+                                                                        //Statut du dossier
+                                                                        $req_statut = $bdd->query("SELECT * FROM statut_dossier INNER JOIN dossiers ON statut_dossier.id_statut_dos=dossiers.statut_dos WHERE dossiers.statut_dos=$stat");
+                                                                        $statut = $req_statut->fetch();
+
+                                                                        echo $statut["lib_statut_dos"];
+                                                                    ?>
                                                                 </td>
-                                                                <td>Débuté</td>
-                                                                <td><?= $dos["observations_dos"]; ?></td>
+                                                                <td><?= $dos["observations_dos"] ?></td>
                                                                 <td>
-                                                                <button id="<?= $dos["reference_dos"] ?>" data-toggle="modal" data-target="#modalmodifier" class="btn btn-success btn-round btnedit"><i class="ti-pencil"></i></button>
-                                                                <button id="<?= $dos["reference_dos"] ?>" data-toggle="modal" data-target="#modalsupprimer" class="btn btn-danger btn-round btndelete"><i class="ti-trash"></i></button>
+                                                                <button id="<?= $dos["id_dos"] ?>" data-toggle="modal" data-target="#modalmodifier" class="btn btn-success btn-round btnedit"><i class="ti-pencil"></i></button>
+                                                                <button id="<?= $dos["id_dos"] ?>" data-toggle="modal" data-target="#modalsupprimer" class="btn btn-danger btn-round btndelete"><i class="ti-trash"></i></button>
                                                                 </td>
                                                                 </tr>
                                                             <?php  endforeach; ?>
@@ -232,144 +248,143 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <form action="queries/dossiers/traitementAjout.php" method="post">
       <div class="modal-body">
-        <form action="">
             <div class="form-group row">
                 <div class="col-md-12 text-center">
                     <label class="col-sm-4 col-form-label">INSTRUCTIONS DU DGPE :</label>
-                    <input type="text" class="form-control form-control-round" id="intitule" name="intitule">
+                    <input type="text" class="form-control form-control-round" id="instructDGPE_dos" name="instructDGPE_dos">
                 </div>
             </div>
             <h5 class="bg-info text-dark p-1">INFORMATIONS DU COURRIER</h5>                                                      
             <div class="form-group row">
                 <div class="col-md-6 text-center">
                     <label>EXPEDITEUR</label>
-                    <input type="text" class="form-control form-control-round" id="intitule" name="intitule">
+                    <input type="text" class="form-control form-control-round" id="expediteur_dos" name="expediteur_dos">
                 </div>
                 <div class="col-md-6 text-center">
-                    <label>REFERENCE</label>
-                    <input type="text" class="form-control form-control-round" id="intitule" name="intitule">
+                    <label>REFERENCE (<span class="text-danger">*</span>)</label>
+                    <input type="text" class="form-control form-control-round" id="ref_dos" name="ref_dos" required>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-md-12 text-center">
-                    <label>OBJET</label>
-                    <input type="text" class="form-control form-control-round" id="intitule" name="intitule">
+                    <label>OBJET (<span class="text-danger">*</span>)</label>
+                    <input type="text" class="form-control form-control-round" id="objet_dos" name="objet_dos" required>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-md-6 text-center">
                     <label>DATE DU DOSSIER</label>
-                    <input type="date" class="form-control form-control-round" id="intitule" name="intitule">
+                    <input type="date" class="form-control form-control-round" id="date_dos" name="date_dos">
                 </div>
                 <div class="col-md-6 text-center">
                     <label>DATE DE RECEPTION</label>
-                    <input type="date" class="form-control form-control-round" id="intitule" name="intitule">
+                    <input type="date" class="form-control form-control-round" id="date_recep_dos" name="date_recep_dos">
                 </div>
             </div>
             <h5 class="bg-info text-dark p-1">IMPUTATIONS</h5> 
             <div class="form-group row">
-                <div class="col-md-4 text-center">
+                <div class="col-md-12 text-center">
                     <label>SOUS DIRECTION</label>
-                    <select name="select" class="form-control">
-                        <option selected disabled>-- Choisir SD --</option>
-                        <option value="opt1">SD 1</option>
-                        <option value="opt2">SD 2</option>
+                    <select id="imputation_sd_dos" name="imputation_sd_dos" class="form-control">
+                        <option selected disabled value="0">-- Choisir SD --</option>
+                        <?php foreach($sousdirections as $sd): ?>
+                                <option value="<?= $sd['id_sd'] ?>"><?= $sd['libelle_sd'] ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
-                <div class="col-md-4 text-center">
+                </div>
+                <div class="form-group row">
+                <div class="col-md-6 text-center">
                     <label>SERVICE</label>
-                    <select name="select" class="form-control">
-                        <option selected disabled>-- Choisir Service --</option>
-                        <option value="opt1">Service 1</option>
-                        <option value="opt2">Service 2</option>
+                    <select id="imputation_service_dos" name="imputation_service_dos" class="form-control">
+                        <option selected disabled value="0">-- Choisir Service --</option>
                     </select>
                 </div>
-                <div class="col-md-4 text-center">
+                <div class="col-md-6 text-center">
                     <label>AGENT</label>
-                    <select name="select" class="form-control">
-                        <option selected disabled>-- Choisir Agent --</option>
-                        <option value="opt1">Agent 1</option>
-                        <option value="opt2">Agent 2</option>
+                    <select id="imputation_agent_dos" name="imputation_agent_dos" class="form-control">
+                        <option selected disabled value="0">-- Choisir Agent --</option>
                     </select>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-md-12 text-center">
                     <label>AUTRES</label>
-                    <input type="text" class="form-control form-control-round" id="intitule" name="intitule">
+                    <input type="text" class="form-control form-control-round" id="imputation_autres" name="imputation_autres">
                 </div>
             </div>
             <h5 class="bg-info text-dark p-1">INSTRUCTIONS</h5> 
-            <div class="form-group row text-center">
-                <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-4 ml-4 mr-2">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
+                        <input class="form-check-input" type="checkbox" value="Pour Examen" id="instruction1" name="instructions[]">
+                        <label class="form-check-label" for="instruction1">
                             Pour Examen
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
+                        <input class="form-check-input" type="checkbox" value="Pour Suivi" id="instruction2" name="instructions[]">
+                        <label class="form-check-label" for="instruction2">
                             Pour Suivi
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
+                        <input class="form-check-input" type="checkbox" value="Pour Disposition à Prendre" id="instruction3" name="instructions[]">
+                        <label class="form-check-label" for="instruction3">
                             Pour Disposition à Prendre
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
+                        <input class="form-check-input" type="checkbox" value="Pour Diffusion" id="instruction4"  name="instructions[]">
+                        <label class="form-check-label" for="instruction4">
                             Pour Diffusion  
                         </label>
                     </div>
                 </div>  
-                <div class="col-md-4">
+                <div class="col-md-3 mr-4">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
+                        <input class="form-check-input" type="checkbox" value="A Classer" id="instruction5" name="instructions[]">
+                        <label class="form-check-label" for="instruction5">
                             A Classer
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
+                        <input class="form-check-input" type="checkbox" value="Pour note de Synthèse" id="instruction6" name="instructions[]">
+                        <label class="form-check-label" for="instruction6">
                             Pour note de Synthèse
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
+                        <input class="form-check-input" type="checkbox" value="Pour Avis" id="instruction7" name="instructions[]">
+                        <label class="form-check-label" for="instruction7">
                             Pour Avis
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
+                        <input class="form-check-input" type="checkbox" value="Pour Accord" id="instruction8" name="instructions[]">
+                        <label class="form-check-label" for="instruction8">
                             Pour Accord
                         </label>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
+                        <input class="form-check-input" type="checkbox" value="Pour Instruction" id="instruction9" name="instructions[]">
+                        <label class="form-check-label" for="instruction9">
                             Pour Instruction
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
+                        <input class="form-check-input" type="checkbox" value="Me Voir" id="instruction10" name="instructions[]">
+                        <label class="form-check-label" for="instruction10">
                             Me Voir
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
+                        <input class="form-check-input" type="checkbox" value="Pour Information" id="instruction11" name="instructions[]">
+                        <label class="form-check-label" for="instruction11">
                             Pour Information
                         </label>
                     </div>
@@ -378,39 +393,137 @@
             <div class="form-group row">
                 <div class="col-md-12 text-center">
                     <label>AUTRES</label>
-                    <input type="text" class="form-control form-control-round" id="intitule" name="intitule">
+                    <input type="text" class="form-control form-control-round" id="instructionAutre" name="instructions[]">
                 </div>
             </div>
             <h5 class="bg-info text-dark p-1">DELAI</h5> 
             <div class="form-group row">
                 <div class="col-md-6 text-center">
                     <label>DATE DE DEBUT</label>
-                    <input type="date" class="form-control form-control-round" id="intitule" name="intitule">
+                    <input type="date" class="form-control form-control-round" id="date_debut_dos" name="date_debut_dos">
                 </div>
                 <div class="col-md-6 text-center">
                     <label>DATE DE FIN</label>
-                    <input type="date" class="form-control form-control-round" id="intitule" name="intitule">
+                    <input type="date" class="form-control form-control-round" id="date_fin_prevue_dos" name="date_fin_prevue_dos">
                 </div>
             </div>
             <h5 class="bg-info text-dark p-1">OBSERVATIONS</h5> 
             <div class="form-group row">
                 <div class="col-sm-12">
-                    <textarea rows="5" cols="5" id="observations" name="observations" class="form-control"></textarea>
+                    <textarea rows="5" cols="5" id="observations_dos" name="observations_dos" class="form-control"></textarea>
                 </div>
-            </div>
-        </form>                                                         
+            </div>                                              
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default btn-round" data-dismiss="modal">Annuler</button>
         <button type="submit" name="ajout_dossier" id="ajout_dossier" class="btn btn-primary btn-round">Ajouter</button>
       </div>
+      <input type="hidden" name="user" value="<?= $id; ?>">
+      </form> 
     </div>
   </div>
 </div>
 
+<div class="modal fade" id="modalmodifier" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">MODIFICATION DE DOSSIER - DPSPS </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+            <form id="form_mod" action="queries/dossiers/modifier.php" method="post">
+            <div class="affiche"></div>                                     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-round" data-dismiss="modal">Annuler</button>
+        <button type="submit" name="modifier_dossier" id="modifier_dossier" class="btn btn-success btn-round">Modifier</button>
+      </div>
+      <input type="hidden" name="user" value="<?= $id; ?>">
+      </form> 
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalsupprimer" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">SUPPRESSION DE DOSSIER - DPSPS </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+            <form id="form_sup" action="queries/dossiers/supprimer.php" method="post">
+            <div class="affichage"></div>                                     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-round" data-dismiss="modal">Annuler</button>
+        <button type="submit" name="supprimer_dossier" id="supprimer_dossier" class="btn btn-danger btn-round">Supprimer</button>
+      </div>
+      <input type="hidden" name="user" value="<?= $id; ?>">
+      </form> 
+    </div>
+  </div>
+</div>
 
 <?php 
 require_once 'layout/footer.php'; 
 else : header('location: login.php');
 endif;
 ?>
+<script>
+    $(document).ready(function(){
+
+        //modifier
+        $(document).on('click', '.btnedit', function(){
+
+            var id_dossier = $(this).attr("id");
+        
+            $.ajax({
+                url: "queries/dossiers/traitementModif.php",
+                method: "POST",
+                data: {id_dossier:id_dossier},
+                success:function(data){
+                    $(".affiche").html(data);
+                }
+            })
+            
+            
+        });
+            
+        $(document).on('click', '#modifier_dossier', function(){
+        
+            $("#form_mod").submit();
+        
+        });
+
+
+        //supprimer
+        $(document).on('click', '.btndelete', function(){
+
+        var id_dossup = $(this).attr("id");
+
+        $.ajax({
+            url: "queries/dossiers/traitementSup.php",
+            method: "POST",
+            data: {id_dossup:id_dossup},
+            success:function(data){
+                $(".affichage").html(data);
+            }
+        })
+
+
+        });
+        $(document).on('click', '#supprimer_dossier', function(){
+
+        $("#form_sup").submit();
+
+        });
+    });
+    
+</script>
+<script src="treatments/imputation.js"></script>

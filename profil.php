@@ -38,71 +38,45 @@
                 <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Consultation</div>
                 <ul class="pcoded-item pcoded-left-item">
                     <li>
-                        <a href="consultation/notifications.php">
+                        <a href="notifications.php">
                             <span class="pcoded-micon"><i class="ti-bell"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.form-components.main">Notifications</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
                     <li>
-                        <a href="chart.html">
+                        <a href="suivi.php">
                             <span class="pcoded-micon"><i class="ti-stats-up"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.form-components.main">Rapports et Suivis</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
                     <li>
-                        <a href="map-google.html">
+                        <a href="personnel.php">
                             <span class="pcoded-micon"><i class="ti-user"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.form-components.main">Liste du personnel</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
                     <li>
-                        <a href="map-google.html">
+                        <a href="services.php">
                             <span class="pcoded-micon"><i class="ti-briefcase"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.form-components.main">Liste des services</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
                 </ul>
-                <!-- liste du personnel (et leur service respectifs)
-                liste des services (nombre de personnel dans le service) -->
                 <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Administration</div>
                 <ul class="pcoded-item pcoded-left-item">
                     <li>
-                        <a href="chart.html">
+                        <a href="utilisateurs.php">
                             <span class="pcoded-micon"><i class="ti-user"></i></span>
                             <span class="pcoded-mtext" data-i18n="nav.form-components.main">Utilisateurs</span>
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
-                    <li>
-                        <a href="map-google.html">
-                            <span class="pcoded-micon"><i class="ti-check-box"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.form-components.main">Rôles</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
                 </ul>
 
-                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.other">Configurations</div>
-                <ul class="pcoded-item pcoded-left-item">
-                    <li>
-                        <a href="map-google.html">
-                            <span class="pcoded-micon"><i class="ti-view-grid"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.form-components.main">L' Application</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="map-google.html">
-                            <span class="pcoded-micon"><i class="ti-palette"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.form-components.main">Thème</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                </ul>
                         </div>
                     </nav>
                     <div class="pcoded-content">

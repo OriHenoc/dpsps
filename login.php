@@ -4,7 +4,6 @@
         header('location: ./');
     else :
     require_once 'config/connexion.php';
-    require_once 'queries/read.php';
     require_once 'layout/head.php';
 ?>
 <body class="fix-menu">
@@ -36,7 +35,7 @@
                     <div class="login-card card-block auth-body mr-auto ml-auto">
                         <form class="md-float-material" id="form_connexion" method="POST">
                             <div class="text-center">
-                            <h2><?= $infos_app['nom_application'] ?></h2>
+                            <h2>DPSPS</h2>
                             </div>
                             <div class="auth-box">
                                 <div class="row m-b-20">

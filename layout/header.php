@@ -92,18 +92,20 @@
                                         foreach($notifications_non_lues as $notifs): 
                                     ?>
                                     <li>
-                                        <a href="consultation/notifications.php/#<?= $notifs['id_notif'] ?>">
+                                        
                                             <div class="media">
                                                 <div class="media-body">
-                                                    <h5 class="notification-user"><?= $notifs['libelle_notif'] ?></h5>
-                                                    <p class="notification-msg"><?= $notifs['description_notif'] ?></p>
-                                                    <span class="notification-time"><?= time2str($notifs['date_notif']) ?></span>
+                                                    <a href="queries/notifications/voirnotifications.php">
+                                                        <h5 class="notification-user"><?= $notifs['libelle_notif'] ?></h5>
+                                                        <p class="notification-msg"><?= $notifs['description_notif'] ?></p>
+                                                        <span class="notification-time"><?= time2str($notifs['date_notif']) ?></span>
+                                                    </a>
                                                 </div>
                                             </div>
-                                        </a>
+                                        
                                     </li>
                                     <?php endforeach ?>
-                                    <li><a href="consultation/notifications.php">Voir toutes les notifications</a></li>
+                                    <li><a href="notifications.php">Voir toutes les notifications</a></li>
                                 </ul>
                             </li>
                             <li class="user-profile header-notification">
