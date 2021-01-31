@@ -1,11 +1,9 @@
 <?php
 
-
 //Tous le personnel
 
 $recherche_personnel = $bdd->query("SELECT * FROM users INNER JOIN users_roles ON users.id_user=users_roles.user_id INNER JOIN roles ON roles.id_role=users_roles.role_id LEFT JOIN services ON users.service_id=services.id_service");
 $personnel = $recherche_personnel->fetchAll();
-
 
 //Infos Utilisateur Connecté
 
@@ -61,12 +59,12 @@ $delaiJoursDosProche = round($delaidos / (60 * 60 * 24));
 
 
 //Toutes les activites
-$recherche_activites = $bdd->query("SELECT * FROM activites ORDER BY id_activite desc");
+$recherche_activites = $bdd->query("SELECT * FROM activites WHERE deleted=0 ORDER BY id_activite desc");
 $activites = $recherche_activites->fetchAll();
 $totalActivites =$recherche_activites->rowCount();
 
 //Toutes les activites en cours
-$recherche_activites_encours = $bdd->query("SELECT * FROM activites WHERE date_fin_activite IS NULL");
+$recherche_activites_encours = $bdd->query("SELECT * FROM activites WHERE deleted=0 AND date_fin_activite IS NULL");
 $activites_encours = $recherche_activites_encours->fetchAll();
 $totalActivitesEnCours =$recherche_activites_encours->rowCount();
 
@@ -96,3 +94,15 @@ $nbre_notifications_lues = $recherche_notifications_lues->rowCount();
 $recherche_notifications_non_lues = $bdd->query("SELECT * FROM notifications INNER JOIN users ON users.id_user=notifications.cible_notif WHERE cible_notif='$id' and statut_notif='0' ORDER BY date_notif DESC");
 $notifications_non_lues = $recherche_notifications_non_lues->fetchAll();
 $nbre_notifications_non_lues = $recherche_notifications_non_lues->rowCount();
+
+//Tous les statut activite pour CE
+$recherche_statut_activite_ce = $bdd->query("SELECT * FROM statut_activite_ce");
+$statut_activite_ce = $recherche_statut_activite_ce->fetchAll();
+
+//Tous les statut activite pour CS
+$recherche_statut_activite_cs = $bdd->query("SELECT * FROM statut_activite_cs");
+$statut_activite_cs = $recherche_statut_activite_cs->fetchAll();
+
+//Tous les statut activite pour SD
+$recherche_statut_activite_sd = $bdd->query("SELECT * FROM statut_activite_sd");
+$statut_activite_sd = $recherche_statut_activite_sd->fetchAll();

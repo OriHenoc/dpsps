@@ -164,8 +164,12 @@
                                                                 <td><?php $s = ''; $personne['statut_user']==1 ? $s = 'OUI' : $s = 'NON'; echo $s; ?></td>
                                                                 <td><?php $l = ''; $personne['online']==1 ? $l = 'OUI' : $l = 'NON'; echo $l; ?></td>
                                                                 <td>
-                                                                <button id="<?= $personne["id_user"] ?>" data-toggle="modal" data-target="#modalmodifier" class="btn btn-success btn-round btnedit"><i class="ti-pencil"></i></button>
-                                                                <button id="<?= $personne["id_user"] ?>" data-toggle="modal" data-target="#modalsupprimer" class="btn btn-danger btn-round btndelete"><i class="ti-lock"></i></button>
+                                                                <?php if($personne['statut_user']==1): ?>
+                                                                    <button id="<?= $personne["id_user"] ?>" data-toggle="modal" data-target="#modalbloquer" class="btn btn-danger btn-round btnblock"><i class="ti-lock"></i></button>
+                                                                <?php endif; ?>
+                                                                <?php if($personne['statut_user']==0): ?>
+                                                                    <button id="<?= $personne["id_user"] ?>" data-toggle="modal" data-target="#modaldebloquer" class="btn btn-primary btn-round btndeblock"><i class="ti-unlock"></i></button>
+                                                                <?php endif; ?>
                                                                 </td>
                                                                 </tr>
                                                             <?php  endforeach; ?>
@@ -264,6 +268,50 @@
   </div>
 </div>
 
+<div class="modal fade" id="modalbloquer" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Bloquer un utilisateur </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+            <form id="form_block" action="queries/users/bloquer.php" method="post">
+            <div class="affichage"></div>                                     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-round" data-dismiss="modal">Annuler</button>
+        <button type="submit" name="bloquer_user" id="bloquer_user" class="btn btn-danger btn-round">Verrouiller</button>
+      </div>
+      </form> 
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modaldebloquer" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Débloquer un utilisateur </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+            <form id="form_deblock" action="queries/users/debloquer.php" method="post">
+            <div class="affichage2"></div>                                     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-round" data-dismiss="modal">Annuler</button>
+        <button type="submit" name="debloquer_user" id="debloquer_user" class="btn btn-primary btn-round">Déverrouiller</button>
+      </div>
+      </form> 
+    </div>
+  </div>
+</div>
+
 
 
 <?php 
@@ -273,3 +321,53 @@ endif;
 ?>
 
 <script src="treatments/imputation.js"></script>
+
+<script>
+    $(document).ready(function(){
+
+        //bloquer
+        $(document).on('click', '.btnblock', function(){
+
+        var id_user = $(this).attr("id");
+
+        $.ajax({
+            url: "queries/users/traitementBlock.php",
+            method: "POST",
+            data: {id_user:id_user},
+            success:function(data){
+                $(".affichage").html(data);
+            }
+        })
+
+
+        });
+        $(document).on('click', '#bloquer_user', function(){
+
+        $("#form_block").submit();
+
+        });
+
+        //débloquer
+        $(document).on('click', '.btndeblock', function(){
+
+        var id_user = $(this).attr("id");
+
+        $.ajax({
+            url: "queries/users/traitementDeblock.php",
+            method: "POST",
+            data: {id_user:id_user},
+            success:function(data){
+                $(".affichage2").html(data);
+            }
+        })
+
+
+        });
+        $(document).on('click', '#debloquer_user', function(){
+
+        $("#form_deblock").submit();
+
+        });
+    });
+    
+</script>

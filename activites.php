@@ -268,9 +268,144 @@
   </div>
 </div>
 
+<div class="modal fade" id="modalmodifier" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modifier une activité </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+            <form id="form_mod" action="queries/activites/modifier.php" method="post">
+            <div class="affiche"></div>
+            <?php if($role==='CE'): ?>
+                <div class="form-group row">
+                    <div class="col-md-12 text-center">
+                        <label>STATUT</label>
+                        <select id="statut_activite_ce" name="statut_activite_ce" class="form-control" required>
+                            <option selected value="">-- Modifier statut --</option>
+                            <?php foreach($statut_activite_ce as $stce): ?>
+                                    <option value="<?= $stce['id_statut_activite_ce'] ?>"><?= $stce['lib_statut_activite_ce'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div> 
+            <?php endif; ?>
+            <?php if($role==='CS'): ?>
+                <div class="form-group row">
+                    <div class="col-md-12 text-center">
+                        <label>STATUT</label>
+                        <select id="statut_activite_cs" name="statut_activite_cs" class="form-control" required>
+                            <option selected disabled value="">-- Choisir statut --</option>
+                            <?php foreach($statut_activite_cs as $stcs): ?>
+                                    <option value="<?= $stcs['id_statut_activite_cs'] ?>"><?= $stcs['lib_statut_activite_cs'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div> 
+            <?php endif; ?>  
+            <?php if($role==='SD'): ?>
+                <div class="form-group row">
+                    <div class="col-md-12 text-center">
+                        <label>STATUT</label>
+                        <select id="statut_activite_sd" name="statut_activite_sd" class="form-control" required>
+                            <option selected disabled value="">-- Choisir statut --</option>
+                            <?php foreach($statut_activite_sd as $stsd): ?>
+                                    <option value="<?= $stsd['id_statut_activite_sd'] ?>"><?= $stsd['lib_statut_activite_sd'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div> 
+            <?php endif; ?>                                    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-round" data-dismiss="modal">Annuler</button>
+        <button type="submit" name="modifier_activite" id="modifier_activite" class="btn btn-success btn-round">Modifier</button>
+      </div>
+      </form> 
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalsupprimer" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Supprimer une activité </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+            <form id="form_sup" action="queries/activites/supprimer.php" method="post">
+            <div class="affichage"></div>                                     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-round" data-dismiss="modal">Annuler</button>
+        <button type="submit" name="supprimer_activite" id="supprimer_activite" class="btn btn-danger btn-round">Supprimer</button>
+      </div>
+      </form> 
+    </div>
+  </div>
+</div>
+
 
 <?php 
 require_once 'layout/footer.php'; 
 else : header('location: login.php');
 endif;
 ?>
+
+<script>
+    $(document).ready(function(){
+
+        //modifier
+        $(document).on('click', '.btnedit', function(){
+
+            var id_activite = $(this).attr("id");
+        
+            $.ajax({
+                url: "queries/activites/traitementModif.php",
+                method: "POST",
+                data: {id_activite:id_activite},
+                success:function(data){
+                    $(".affiche").html(data);
+                }
+            })
+            
+            
+        });
+            
+        $(document).on('click', '#modifier_activite', function(){
+        
+            $("#form_mod").submit();
+        
+        });
+
+
+        //supprimer
+        $(document).on('click', '.btndelete', function(){
+
+        var id_actsup = $(this).attr("id");
+
+        $.ajax({
+            url: "queries/activites/traitementSup.php",
+            method: "POST",
+            data: {id_actsup:id_actsup},
+            success:function(data){
+                $(".affichage").html(data);
+            }
+        })
+
+
+        });
+        $(document).on('click', '#supprimer_activite', function(){
+
+        $("#form_sup").submit();
+
+        });
+    });
+    
+</script>

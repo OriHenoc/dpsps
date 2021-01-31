@@ -130,7 +130,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="card-block">
-                                                        <form action="">
+                                                        <form action="queries/users/modifierInfosProfil.php" method="post">
                                                             <div class="form-group row">
                                                                 <label class="col-sm-3 col-form-label">Nom d'utilisateur :</label>
                                                                 <div class="col-sm-9">
@@ -169,9 +169,10 @@
                                                             <hr />
                                                             <div class="row">
                                                                 <div class="col-sm-12 text-center">
-                                                                    <button class="btn btn-primary btn-round">Enregistrer</button>
+                                                                    <button class="btn btn-primary btn-round" name="modifier_info" type="submit">Enregistrer</button>
                                                                 </div>
                                                             </div>
+                                                            <input type="hidden" id="user" name="user" value="<?= $user['id_user'] ?>">
                                                         </form>
                                                     </div>
                                                 </div>
@@ -191,7 +192,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="card-block">
-                                                        <form action="">
+                                                        <form action="queries/users/modifierMdpProfil.php" method="post">
                                                             <div class="form-group row">
                                                                 <label class="col-sm-12 col-form-label">Mot de Passe Actuel :</label>
                                                                 <div class="col-sm-12">
@@ -216,9 +217,10 @@
                                                             <hr />
                                                             <div class="row">
                                                                 <div class="col-sm-12 text-center">
-                                                                    <button class="btn btn-danger btn-round">Modifier</button>
+                                                                    <button class="btn btn-danger btn-round" type="submit" name="modifier_mdp">Modifier</button>
                                                                 </div>
                                                             </div>
+                                                            <input type="hidden" id="user" name="user" value="<?= $user['id_user'] ?>">
                                                         </form>
                                                     </div>
                                                 </div>

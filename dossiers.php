@@ -156,7 +156,15 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <?php $i=1; foreach($dossiers as $dos): ?>
+                                                                <?php $i=1; foreach($dossiers as $dos): 
+                                                                
+                                                                //check & update dossier
+
+                                                                $leDos = $dos['id_dos'];
+
+                                                                   
+                                                                                                                                        
+                                                                ?>
                                                                 <tr>
                                                                 <td><?= $i++ ?></td>
                                                                 <td><?= $dos["ref_dos"] ?></td>
@@ -205,9 +213,8 @@
                                                                 <td><?= $dos["date_fin_reelle_dos"] ?></td>
                                                                 <td>
                                                                     <?php 
-                                                                        $stat = $dos["statut_dos"];
                                                                         //Statut du dossier
-                                                                        $req_statut = $bdd->query("SELECT * FROM statut_dossier INNER JOIN dossiers ON statut_dossier.id_statut_dos=dossiers.statut_dos WHERE dossiers.statut_dos=$stat");
+                                                                        $req_statut = $bdd->query("SELECT * FROM statut_dossier INNER JOIN dossiers ON statut_dossier.id_statut_dos=dossiers.statut_dos WHERE dossiers.id_dos=$leDos");
                                                                         $statut = $req_statut->fetch();
 
                                                                         echo $statut["lib_statut_dos"];
