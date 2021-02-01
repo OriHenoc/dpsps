@@ -17,26 +17,29 @@
                         </a>
                     </li>
                 </ul>
-                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Gestion</div>
-                <ul class="pcoded-item pcoded-left-item">
-                    <li>
-                        <a href="dossiers.php">
-                            <span class="pcoded-micon"><i class="ti-folder"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.form-components.main">Dossiers</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="activites.php">
-                            <span class="pcoded-micon"><i class="ti-layers-alt"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.form-components.main">Activités</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                </ul>
+                <?php if($role!=='SA'): ?>
+                    <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Gestion</div>
+                    <ul class="pcoded-item pcoded-left-item">
+                        <li>
+                            <a href="dossiers.php">
+                                <span class="pcoded-micon"><i class="ti-folder"></i></span>
+                                <span class="pcoded-mtext" data-i18n="nav.form-components.main">Dossiers</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a href="activites.php">
+                                <span class="pcoded-micon"><i class="ti-layers-alt"></i></span>
+                                <span class="pcoded-mtext" data-i18n="nav.form-components.main">Activités</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
+                <?php endif; ?>
 
                 <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Consultation</div>
                 <ul class="pcoded-item pcoded-left-item">
+                <?php if($role!=='SA'): ?>
                     <li>
                         <a href="notifications.php">
                             <span class="pcoded-micon"><i class="ti-bell"></i></span>
@@ -44,6 +47,7 @@
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
+                <?php endif; ?>
                     <li>
                         <a href="suivi.php">
                             <span class="pcoded-micon"><i class="ti-stats-up"></i></span>
@@ -66,16 +70,18 @@
                         </a>
                     </li>
                 </ul>
-                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Administration</div>
-                <ul class="pcoded-item pcoded-left-item">
-                    <li>
-                        <a href="utilisateurs.php">
-                            <span class="pcoded-micon"><i class="ti-user"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.form-components.main">Utilisateurs</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                </ul>
+                <?php if($role==='SA'): ?>
+                    <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Administration</div>
+                    <ul class="pcoded-item pcoded-left-item">
+                        <li>
+                            <a href="utilisateurs.php">
+                                <span class="pcoded-micon"><i class="ti-user"></i></span>
+                                <span class="pcoded-mtext" data-i18n="nav.form-components.main">Utilisateurs</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
+                <?php endif; ?>
 
                 </div>
                     </nav>
@@ -205,8 +211,10 @@
                                                                 <td><?= $act["date_fin_activite"] ?></td>
                                                                 <td>
                                                                 <button id="<?=  $act["id_activite"] ?>" data-toggle="modal" data-target="#modalmodifier" class="btn btn-success btn-round btnedit"><i class="ti-pencil"></i></button>
+                                                                <?php if($role!=='CE'): ?>
                                                                 <button id="<?=  $act["id_activite"] ?>" data-toggle="modal" data-target="#modalsupprimer" class="btn btn-danger btn-round btndelete"><i class="ti-trash"></i></button>
-                                                                </td>
+                                                                <?php endif; ?>
+                                                            </td>
                                                                 </tr>
                                                             <?php  endforeach; ?>
                                                             </tbody>

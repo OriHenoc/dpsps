@@ -61,6 +61,18 @@ $delaiJoursDosProche = round($delaidos / (60 * 60 * 24));
 //Toutes les activites
 $recherche_activites = $bdd->query("SELECT * FROM activites WHERE deleted=0 ORDER BY id_activite desc");
 $activites = $recherche_activites->fetchAll();
+
+
+//Toutes les activités que je peux voir si je ne suis ni directeur ni superadmin
+$recherche_activitesConcernes = $bdd->query("SELECT * FROM activites INNER JOIN dossiers ON dossiers.id_dos=activites.dossier_activite INNER JOIN services ON services.id_service=dossiers.imputation_service_dos INNER JOIN users ON users.service_id=services.id_service WHERE users.id_user='$id'");
+
+if($role==='DR' || $role==='SA'):
+    $activites = $recherche_activites->fetchAll();
+endif;
+
+if($role!=='DR' && $role!=='SA'):
+    $activites = $recherche_activitesConcernes->fetchAll();
+endif;
 $totalActivites =$recherche_activites->rowCount();
 
 //Toutes les activites en cours

@@ -17,26 +17,29 @@
                         </a>
                     </li>
                 </ul>
-                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Gestion</div>
-                <ul class="pcoded-item pcoded-left-item">
-                    <li>
-                        <a href="dossiers.php">
-                            <span class="pcoded-micon"><i class="ti-folder"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.form-components.main">Dossiers</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="activites.php">
-                            <span class="pcoded-micon"><i class="ti-layers-alt"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.form-components.main">Activités</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                </ul>
+                <?php if($role!=='SA'): ?>
+                    <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Gestion</div>
+                    <ul class="pcoded-item pcoded-left-item">
+                        <li>
+                            <a href="dossiers.php">
+                                <span class="pcoded-micon"><i class="ti-folder"></i></span>
+                                <span class="pcoded-mtext" data-i18n="nav.form-components.main">Dossiers</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="activites.php">
+                                <span class="pcoded-micon"><i class="ti-layers-alt"></i></span>
+                                <span class="pcoded-mtext" data-i18n="nav.form-components.main">Activités</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
+                <?php endif; ?>
 
                 <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Consultation</div>
                 <ul class="pcoded-item pcoded-left-item">
+                <?php if($role!=='SA'): ?>
                     <li class="active">
                         <a href="notifications.php">
                             <span class="pcoded-micon"><i class="ti-bell"></i></span>
@@ -44,6 +47,7 @@
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
+                <?php endif; ?>
                     <li>
                         <a href="suivi.php">
                             <span class="pcoded-micon"><i class="ti-stats-up"></i></span>
@@ -66,16 +70,18 @@
                         </a>
                     </li>
                 </ul>
-                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Administration</div>
-                <ul class="pcoded-item pcoded-left-item">
-                    <li>
-                        <a href="utilisateurs.php">
-                            <span class="pcoded-micon"><i class="ti-user"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.form-components.main">Utilisateurs</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                </ul>
+                <?php if($role==='SA'): ?>
+                    <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Administration</div>
+                    <ul class="pcoded-item pcoded-left-item">
+                        <li>
+                            <a href="utilisateurs.php">
+                                <span class="pcoded-micon"><i class="ti-user"></i></span>
+                                <span class="pcoded-mtext" data-i18n="nav.form-components.main">Utilisateurs</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
+                <?php endif; ?>
                         </div>
                     </nav>
                     <div class="pcoded-content">
@@ -133,6 +139,7 @@
                                                                         <span class="notification-time">Action réalisée <?= time2str($n['date_notif']) ?></span>
                                                                     </div>
                                                                 </div>
+                                                                <hr />
                                                             <?php endforeach; ?>
                                                         </div>
                                                     </div>
@@ -148,6 +155,32 @@
             </div>
         </div>
     </div>
+
+<div class="modal fade" id="delall" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Supprimer une activité </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+            <form action="queries/notifications/del.php" method="post">
+            <h6 class="text-center">
+                Etes-vous sûr de vouloir supprimer toutes les notifications ? <br><br>
+                <span class="small">Action Irrémédiable</span>
+            </h6>                                   
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-round" data-dismiss="modal">Annuler</button>
+        <button type="submit" name="supprimer_notifs" id="supprimer_notifs" class="btn btn-danger btn-round">Supprimer</button>
+      </div>
+      <input type="hidden" name="userx" value="<?= $id; ?>"/>
+      </form> 
+    </div>
+  </div>
+</div>
 
 <?php 
 require_once 'layout/footer.php'; 

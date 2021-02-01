@@ -17,26 +17,29 @@
                         </a>
                     </li>
                 </ul>
-                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Gestion</div>
-                <ul class="pcoded-item pcoded-left-item">
-                    <li class="active">
-                        <a href="dossiers.php">
-                            <span class="pcoded-micon"><i class="ti-folder"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.form-components.main">Dossiers</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="activites.php">
-                            <span class="pcoded-micon"><i class="ti-layers-alt"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.form-components.main">Activités</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                </ul>
+                <?php if($role!=='SA'): ?>
+                    <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Gestion</div>
+                    <ul class="pcoded-item pcoded-left-item">
+                        <li class="active">
+                            <a href="dossiers.php">
+                                <span class="pcoded-micon"><i class="ti-folder"></i></span>
+                                <span class="pcoded-mtext" data-i18n="nav.form-components.main">Dossiers</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="activites.php">
+                                <span class="pcoded-micon"><i class="ti-layers-alt"></i></span>
+                                <span class="pcoded-mtext" data-i18n="nav.form-components.main">Activités</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
+                <?php endif; ?>
 
                 <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Consultation</div>
                 <ul class="pcoded-item pcoded-left-item">
+                <?php if($role!=='SA'): ?>
                     <li>
                         <a href="notifications.php">
                             <span class="pcoded-micon"><i class="ti-bell"></i></span>
@@ -44,6 +47,7 @@
                             <span class="pcoded-mcaret"></span>
                         </a>
                     </li>
+                    <?php endif; ?>
                     <li>
                         <a href="suivi.php">
                             <span class="pcoded-micon"><i class="ti-stats-up"></i></span>
@@ -66,16 +70,18 @@
                         </a>
                     </li>
                 </ul>
-                <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Administration</div>
-                <ul class="pcoded-item pcoded-left-item">
-                    <li>
-                        <a href="utilisateurs.php">
-                            <span class="pcoded-micon"><i class="ti-user"></i></span>
-                            <span class="pcoded-mtext" data-i18n="nav.form-components.main">Utilisateurs</span>
-                            <span class="pcoded-mcaret"></span>
-                        </a>
-                    </li>
-                </ul>
+                <?php if($role==='SA'): ?>
+                    <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">Administration</div>
+                    <ul class="pcoded-item pcoded-left-item">
+                        <li>
+                            <a href="utilisateurs.php">
+                                <span class="pcoded-micon"><i class="ti-user"></i></span>
+                                <span class="pcoded-mtext" data-i18n="nav.form-components.main">Utilisateurs</span>
+                                <span class="pcoded-mcaret"></span>
+                            </a>
+                        </li>
+                    </ul>
+                    <?php endif; ?>
 
                         </div>
                     </nav>
@@ -130,11 +136,13 @@
                                                         </div>
                                                     </div>
                                                     <div class="card-block">
+                                                    <?php if($role!=='CE'): ?>
                                                         <div class="row mb-4">
                                                             <div class="col-sm-12">
                                                                 <button data-toggle="modal" data-target="#modalajouter" class="btn btn-primary btn-round btnadd"><i class="ti-plus"></i> Nouveau Dossier</button>
                                                             </div>
                                                         </div>
+                                                        <?php endif; ?>
                                                         <table id="tableauDossiers" class="table table-hover table-bordered table-responsive">
                                                             <thead>
                                                                 <tr>
@@ -152,7 +160,9 @@
                                                                     <th>Fin Réelle</th>
                                                                     <th>Statut</th>
                                                                     <th>Observations</th>
+                                                                    <?php if($role!=='CE'): ?>
                                                                     <th>Actions</th>
+                                                                    <?php endif; ?>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -222,9 +232,11 @@
                                                                 </td>
                                                                 <td><?= $dos["observations_dos"] ?></td>
                                                                 <td>
+                                                                <?php if($role!=='CE'): ?>
                                                                 <button id="<?= $dos["id_dos"] ?>" data-toggle="modal" data-target="#modalmodifier" class="btn btn-success btn-round btnedit"><i class="ti-pencil"></i></button>
                                                                 <button id="<?= $dos["id_dos"] ?>" data-toggle="modal" data-target="#modalsupprimer" class="btn btn-danger btn-round btndelete"><i class="ti-trash"></i></button>
-                                                                </td>
+                                                                <?php endif; ?>
+                                                            </td>
                                                                 </tr>
                                                             <?php  endforeach; ?>
                                                             </tbody>
